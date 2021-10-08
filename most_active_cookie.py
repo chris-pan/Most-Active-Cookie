@@ -1,4 +1,5 @@
 import sys
+import os.path
 
 # Read file and create cookies log for only the given date.
 def createCookiesLog(filename, date):
@@ -23,7 +24,8 @@ def createCookiesLog(filename, date):
             passedDate = True
         if passedDate:
             break
-
+    f.close()
+    
     return cookies
 
 # Return list of all cookies that have been seen the most
@@ -39,6 +41,9 @@ def getMostActiveCookies(cookies):
 
 def main():
     filename = sys.argv[1]
+    if not os.path.exists(filename):
+        raise FileNotFoundError(filename +  " not found.")
+
     date = sys.argv[3]
 
     cookies = createCookiesLog(filename, date)
